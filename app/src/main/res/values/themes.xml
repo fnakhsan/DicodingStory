@@ -13,4 +13,19 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="textDefault">
+        <item name="color">@color/text_black</item>
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="textBold">
+        <item name="color">@color/text_black</item>
+        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="textExtraBold">
+        <item name="color">@color/text_black</item>
+        <item name="fontFamily">@font/montserrat_extra_bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>
