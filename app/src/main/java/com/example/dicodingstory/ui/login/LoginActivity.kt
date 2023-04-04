@@ -18,12 +18,16 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
         val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
         val loginViewModel: LoginViewModel by viewModels {
             factory
         }
+        loginViewModel.getToken().observe(this) {
+            if (it != null) {
+                toHome()
+            }
+        }
+        setContentView(binding.root)
         binding.apply {
             btnLogin.setOnClickListener {
                 val email = binding.edtEmail.text.toString().trim()
@@ -34,10 +38,8 @@ class LoginActivity : AppCompatActivity() {
                             showLoading(true)
                         }
                         is Result.Success -> {
-                            val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-                            intent.putExtra(EXTRA_TOKEN, it.data.loginResult.token)
-                            startActivity(intent)
-                            finish()
+                            showLoading(false)
+                            toHome()
                         }
                         is Result.Error -> {
                             Toast.makeText(
@@ -60,11 +62,19 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
+    private fun toHome() {
+        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+//        intent.putExtra(EXTRA_TOKEN, token)
+        startActivity(intent)
+        finish()
+    }
+
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     companion object {
-        const val EXTRA_TOKEN = "extra_token"
+        //        const val EXTRA_TOKEN = "extra_token"
+        private const val TAG = "login"
     }
 }

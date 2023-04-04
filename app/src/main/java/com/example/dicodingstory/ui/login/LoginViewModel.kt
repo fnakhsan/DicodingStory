@@ -1,9 +1,14 @@
 package com.example.dicodingstory.ui.login
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.dicodingstory.data.AuthRepository
+import androidx.lifecycle.asLiveData
+import com.example.dicodingstory.data.Repository
+import kotlinx.coroutines.Dispatchers
 
-class LoginViewModel(private val authRepository: AuthRepository) : ViewModel() {
+class LoginViewModel(private val repository: Repository) : ViewModel() {
     fun getUserLogin(email: String, password: String) =
-        authRepository.getUserLogin(email, password)
+        repository.getUserLogin(email, password)
+
+    fun getToken(): LiveData<String?> = repository.getToken().asLiveData(Dispatchers.IO)
 }

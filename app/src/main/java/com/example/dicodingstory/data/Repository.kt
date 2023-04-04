@@ -8,7 +8,7 @@ import com.example.dicodingstory.data.network.ApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 
-class AuthRepository(private val apiService: ApiService, private val authDataStore: AuthDataStore) {
+class Repository(private val apiService: ApiService, private val authDataStore: AuthDataStore) {
 
     fun getUserLogin(email: String, password: String): LiveData<Result<LoginResponse>> =
         liveData(Dispatchers.IO) {
@@ -34,12 +34,12 @@ class AuthRepository(private val apiService: ApiService, private val authDataSto
 
     companion object {
         @Volatile
-        private var instance: AuthRepository? = null
+        private var instance: Repository? = null
         fun getInstance(
             apiService: ApiService,
             authDataStore: AuthDataStore
-        ): AuthRepository = instance ?: synchronized(this) {
-            instance ?: AuthRepository(apiService, authDataStore)
+        ): Repository = instance ?: synchronized(this) {
+            instance ?: Repository(apiService, authDataStore)
         }.also { instance = it }
     }
 }
