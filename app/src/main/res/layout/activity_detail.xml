@@ -28,7 +28,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/iv_story"
+                    android:id="@+id/iv_detail_photo"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:adjustViewBounds="true"
@@ -38,7 +38,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/tv_username"
+                android:id="@+id/tv_detail_name"
                 style="@style/textDefault"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                 tools:text="@string/username" />
 
             <TextView
-                android:id="@+id/tv_description"
+                android:id="@+id/tv_detail_description"
                 style="@style/textDefault"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                 android:layout_marginTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_username"
+                app:layout_constraintTop_toBottomOf="@+id/tv_detail_name"
                 tools:text="@string/story_desc" />
 
             <LinearLayout
@@ -72,10 +72,10 @@
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_description">
+                app:layout_constraintTop_toBottomOf="@id/tv_detail_description">
 
                 <TextView
-                    android:id="@+id/tv_latitude"
+                    android:id="@+id/tv_detail_latitude"
                     style="@style/textDefault"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                     tools:text="@string/lat" />
 
                 <TextView
-                    android:id="@+id/tv_longitude"
+                    android:id="@+id/tv_detail_longitude"
                     style="@style/textDefault"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -96,7 +96,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_date"
+                android:id="@+id/tv_detail_date"
                 style="@style/textDefault"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

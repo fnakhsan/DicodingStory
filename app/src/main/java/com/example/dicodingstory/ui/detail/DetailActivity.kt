@@ -46,21 +46,21 @@ class DetailActivity : AppCompatActivity() {
 
     private fun showDetail(story: Story) {
         binding.apply {
-            tvUsername.text = story.name
-            tvDescription.text = story.description
-            tvDate.text = story.createdAt
-            tvLatitude.visibility = if (story.lat == null) View.GONE else {
-                tvLatitude.text = story.lat.toString()
+            tvDetailName.text = story.name
+            tvDetailDescription.text = story.description
+            tvDetailDate.text = story.createdAt
+            tvDetailLatitude.visibility = if (story.lat == null) View.GONE else {
+                tvDetailLatitude.text = story.lat.toString()
                 View.VISIBLE
             }
-            tvLongitude.visibility = if (story.lon == null) View.GONE else {
-                tvLongitude.text = story.lon.toString()
+            tvDetailLongitude.visibility = if (story.lon == null) View.GONE else {
+                tvDetailLongitude.text = story.lon.toString()
                 View.VISIBLE
             }
             Glide.with(this@DetailActivity)
                 .load(story.photoUrl)
                 .centerCrop()
-                .into(ivStory)
+                .into(ivDetailPhoto)
         }
     }
 

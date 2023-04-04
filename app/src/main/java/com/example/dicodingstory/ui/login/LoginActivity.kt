@@ -30,8 +30,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.apply {
             btnLogin.setOnClickListener {
-                val email = binding.edtEmail.text.toString().trim()
-                val password = binding.edtPassword.text.toString().trim()
+                val email = binding.edLoginEmail.text.toString().trim()
+                val password = binding.edLoginPassword.text.toString().trim()
                 loginViewModel.getUserLogin(email, password).observe(this@LoginActivity) {
                     when (it) {
                         is Result.Loading -> {
@@ -64,7 +64,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun toHome() {
         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-//        intent.putExtra(EXTRA_TOKEN, token)
         startActivity(intent)
         finish()
     }
@@ -74,7 +73,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     companion object {
-        //        const val EXTRA_TOKEN = "extra_token"
         private const val TAG = "login"
     }
 }

@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@id/tv_login" />
 
     <com.example.dicodingstory.ui.customview.EmailEditText
-        android:id="@+id/edt_email"
+        android:id="@+id/ed_login_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
@@ -59,10 +59,10 @@
         android:layout_marginTop="12dp"
         android:text="@string/password"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edt_email" />
+        app:layout_constraintTop_toBottomOf="@id/ed_login_email" />
 
     <com.example.dicodingstory.ui.customview.PasswordEditText
-        android:id="@+id/edt_password"
+        android:id="@+id/ed_login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
@@ -81,7 +81,7 @@
         android:textColor="@color/white2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edt_password" />
+        app:layout_constraintTop_toBottomOf="@id/ed_login_password" />
 
     <LinearLayout
         android:layout_width="wrap_content"
