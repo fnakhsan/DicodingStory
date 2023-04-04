@@ -16,11 +16,11 @@ data class StoryModel(
     val description: String,
 
     @field:SerializedName("lon")
-    val lon: Any,
+    val lon: Float?,
 
     @field:SerializedName("id")
     val id: String,
 
     @field:SerializedName("lat")
-    val lat: Any
+    val lat: Float?
 )

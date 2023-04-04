@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.dicodingstory.data.Repository
 import com.example.dicodingstory.di.Injection
+import com.example.dicodingstory.ui.detail.DetailViewModel
 import com.example.dicodingstory.ui.home.HomeViewModel
 import com.example.dicodingstory.ui.login.LoginViewModel
 
@@ -14,6 +15,7 @@ class ViewModelFactory private constructor(private val repository: Repository): 
         when {
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> return LoginViewModel(repository) as T
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> return HomeViewModel(repository) as T
+            modelClass.isAssignableFrom(DetailViewModel::class.java) -> return DetailViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel Class: " + modelClass.name)
     }

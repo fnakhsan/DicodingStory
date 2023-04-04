@@ -14,6 +14,7 @@ import com.example.dicodingstory.R
 import com.example.dicodingstory.data.Result
 import com.example.dicodingstory.data.model.StoryModel
 import com.example.dicodingstory.databinding.ActivityHomeBinding
+import com.example.dicodingstory.ui.detail.DetailActivity
 import com.example.dicodingstory.ui.login.LoginActivity
 import com.example.dicodingstory.utils.ViewModelFactory
 
@@ -79,7 +80,9 @@ class HomeActivity : AppCompatActivity() {
         val adapter = HomeAdapter(data)
         adapter.setOnItemClickCallback(object : HomeAdapter.OnItemClickCallback {
             override fun onItemClicked(data: StoryModel) {
-
+                val intent = Intent(this@HomeActivity, DetailActivity::class.java)
+                intent.putExtra(EXTRA_ID, data.id)
+                startActivity(intent)
             }
         })
         binding.rvStory.adapter = adapter
@@ -97,5 +100,6 @@ class HomeActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "Home"
+        const val EXTRA_ID = "extra_id"
     }
 }
