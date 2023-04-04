@@ -13,4 +13,5 @@
     <string name="username">Username</string>
     <string name="story_date">Story Date</string>
     <string name="story_desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam architecto, assumenda dicta doloribus eaque error et eum in ipsa officia quaerat, quas, quo recusandae repudiandae sequi tempore temporibus totam voluptates!</string>
+    <string name="upload_story">Upload your story</string>
 </resources>
