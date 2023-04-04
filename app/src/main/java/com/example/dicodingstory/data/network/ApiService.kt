@@ -1,9 +1,8 @@
 package com.example.dicodingstory.data.network
 
+import com.example.dicodingstory.data.model.ListStoryModel
 import com.example.dicodingstory.data.model.LoginResponse
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiService {
     @FormUrlEncoded
@@ -13,5 +12,8 @@ interface ApiService {
         @Field("password") password: String
     ): LoginResponse
 
-
+    @GET("stories")
+    suspend fun getAllStories(
+        @Header("Authorization") token: String
+    ): ListStoryModel
 }

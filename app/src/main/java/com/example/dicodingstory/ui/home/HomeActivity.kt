@@ -8,14 +8,17 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dicodingstory.R
+import com.example.dicodingstory.data.Result
+import com.example.dicodingstory.data.model.StoryModel
 import com.example.dicodingstory.databinding.ActivityHomeBinding
 import com.example.dicodingstory.ui.login.LoginActivity
 import com.example.dicodingstory.utils.ViewModelFactory
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
-    private lateinit var token: String
     private val factory = ViewModelFactory.getInstance(this)
     private val homeViewModel: HomeViewModel by viewModels {
         factory
@@ -24,10 +27,29 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
-        homeViewModel.getToken().observe(this) {
-            if (it != null) {
-                token = it
+
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvStory.layoutManager = layoutManager
+        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
+        binding.rvStory.addItemDecoration(itemDecoration)
+
+        homeViewModel.getToken().observe(this) { token ->
+            if (token != null) {
                 Log.d(TAG, token)
+                homeViewModel.getAllStories(token).observe(this){
+                    when(it) {
+                        is Result.Success -> {
+                            setListStories(it.data.listStory)
+                            showLoading(false)
+                        }
+                        is Result.Error -> {
+                            showLoading(false)
+                        }
+                        is Result.Loading -> {
+                            showLoading(true)
+                        }
+                    }
+                }
             }
         }
         setContentView(binding.root)
@@ -51,6 +73,16 @@ class HomeActivity : AppCompatActivity() {
                 super.onOptionsItemSelected(item)
             }
         }
+    }
+
+    private fun setListStories(data: List<StoryModel?>) {
+        val adapter = HomeAdapter(data)
+        adapter.setOnItemClickCallback(object : HomeAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: StoryModel) {
+
+            }
+        })
+        binding.rvStory.adapter = adapter
     }
 
     private fun toLogin() {
