@@ -7,7 +7,9 @@ import com.example.dicodingstory.data.model.*
 import com.example.dicodingstory.data.network.ApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class Repository(private val apiService: ApiService, private val authDataStore: AuthDataStore) {
 
@@ -68,10 +70,18 @@ class Repository(private val apiService: ApiService, private val authDataStore: 
             }
         }
 
-    fun uploadStory(token: String, description: String, image: MultipartBody.Part): LiveData<Result<UploadModel>> = liveData(Dispatchers.IO) {
+    fun uploadStory(
+        token: String,
+        description: String,
+        image: MultipartBody.Part
+    ): LiveData<Result<UploadModel>> = liveData(Dispatchers.IO) {
         emit(Result.Loading)
         try {
-            val response = apiService.uploadStory(generateBearerToken(token), description, image)
+            val response = apiService.uploadStory(
+                generateBearerToken(token),
+                description.toRequestBody("text/plain".toMediaType()),
+                image
+            )
             emit(Result.Success(response))
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))

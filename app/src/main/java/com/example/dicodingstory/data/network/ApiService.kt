@@ -2,6 +2,7 @@ package com.example.dicodingstory.data.network
 
 import com.example.dicodingstory.data.model.*
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface ApiService {
@@ -35,7 +36,7 @@ interface ApiService {
     @POST("stories")
     suspend fun uploadStory(
         @Header("Authorization") token: String,
-        @Part("description") description: String,
+        @Part("description") description: RequestBody,
         @Part file: MultipartBody.Part
     ): UploadModel
 }
