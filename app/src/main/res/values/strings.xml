@@ -7,7 +7,7 @@
     <string name="invalid_password">Password must be at least 8 characters</string>
     <string name="login_button">Log In</string>
     <string name="register_dialog">Don\'t have an account yet?</string>
-    <string name="register">Register here</string>
+    <string name="register_text_button">Register here!</string>
     <string name="login_failed">Login failed</string>
     <string name="logout">Logout</string>
     <string name="username">Username</string>
@@ -16,4 +16,15 @@
     <string name="upload_story">Upload your story</string>
     <string name="lat">Latitude</string>
     <string name="lon">Longitude</string>
+    <string name="register_title">Create Your Account</string>
+    <string name="name">Name</string>
+    <string name="name_hint">Your Name</string>
+    <string name="register_button">Register</string>
+    <string name="login_dialog">Already have an account?</string>
+    <string name="login_text_button">Login here!</string>
+    <string name="register_failed">Register failed</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="description_hint">Write your description…</string>
+    <string name="upload">Upload</string>
 </resources>

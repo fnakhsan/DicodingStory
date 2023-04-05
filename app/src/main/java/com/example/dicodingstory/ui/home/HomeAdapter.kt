@@ -49,8 +49,8 @@ class HomeAdapter(private val listStory: List<StoryModel?>) :
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ivStory: ImageView = view.findViewById(R.id.iv_story)
-        val tvName: TextView = view.findViewById(R.id.tv_username)
-        val tvDesc: TextView = view.findViewById(R.id.tv_description)
-        val tvDate: TextView = view.findViewById(R.id.tv_date)
+        val tvName: TextView = view.findViewById(R.id.tv_item_name)
+        val tvDesc: TextView = view.findViewById(R.id.tv_item_description)
+        val tvDate: TextView = view.findViewById(R.id.tv_item_date)
     }
 }

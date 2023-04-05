@@ -6,6 +6,7 @@ import com.example.dicodingstory.data.local.AuthDataStore
 import com.example.dicodingstory.data.model.DetailStoryResponse
 import com.example.dicodingstory.data.model.ListStoryModel
 import com.example.dicodingstory.data.model.LoginResponse
+import com.example.dicodingstory.data.model.RegisterModel
 import com.example.dicodingstory.data.network.ApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -34,6 +35,20 @@ class Repository(private val apiService: ApiService, private val authDataStore: 
             }
         }
 
+    fun saveUserRegister(
+        name: String,
+        email: String,
+        password: String
+    ): LiveData<Result<RegisterModel>> = liveData(Dispatchers.IO) {
+        emit(Result.Loading)
+        try {
+            val response = apiService.register(name, email, password)
+            emit(Result.Success(response))
+        } catch (e: Exception) {
+            emit(Result.Error(e.message.toString()))
+        }
+    }
+
     fun getAllStories(token: String): LiveData<Result<ListStoryModel>> = liveData(Dispatchers.IO) {
         emit(Result.Loading)
         try {
@@ -44,15 +59,17 @@ class Repository(private val apiService: ApiService, private val authDataStore: 
         }
     }
 
-    fun getDetailStory(token: String, id: String): LiveData<Result<DetailStoryResponse>> = liveData(Dispatchers.IO) {
-        emit(Result.Loading)
-        try {
-            val response = apiService.getDetailStory(generateBearerToken(token), id)
-            emit(Result.Success(response))
-        } catch (e: Exception) {
-            emit(Result.Error(e.message.toString()))
+    fun getDetailStory(token: String, id: String): LiveData<Result<DetailStoryResponse>> =
+        liveData(Dispatchers.IO) {
+            emit(Result.Loading)
+            try {
+                val response = apiService.getDetailStory(generateBearerToken(token), id)
+                emit(Result.Success(response))
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
         }
-    }
+
 
     private fun generateBearerToken(token: String): String {
         return if (token.contains("bearer", ignoreCase = true)) {

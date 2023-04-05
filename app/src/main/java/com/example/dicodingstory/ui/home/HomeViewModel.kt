@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: Repository): ViewModel() {
-    fun getToken(): LiveData<String?> = repository.getToken().asLiveData(Dispatchers.IO)
+    fun getToken() = repository.getToken().asLiveData(Dispatchers.IO)
 
     fun getAllStories(token: String) = repository.getAllStories(token)
 

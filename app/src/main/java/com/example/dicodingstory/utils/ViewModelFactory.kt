@@ -8,12 +8,14 @@ import com.example.dicodingstory.di.Injection
 import com.example.dicodingstory.ui.detail.DetailViewModel
 import com.example.dicodingstory.ui.home.HomeViewModel
 import com.example.dicodingstory.ui.login.LoginViewModel
+import com.example.dicodingstory.ui.register.RegisterViewModel
 
 class ViewModelFactory private constructor(private val repository: Repository): ViewModelProvider.NewInstanceFactory(){
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         when {
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> return LoginViewModel(repository) as T
+            modelClass.isAssignableFrom(RegisterViewModel::class.java) -> return RegisterViewModel(repository) as T
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> return HomeViewModel(repository) as T
             modelClass.isAssignableFrom(DetailViewModel::class.java) -> return DetailViewModel(repository) as T
         }

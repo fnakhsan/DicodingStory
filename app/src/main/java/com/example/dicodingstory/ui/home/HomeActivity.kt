@@ -16,6 +16,7 @@ import com.example.dicodingstory.data.model.StoryModel
 import com.example.dicodingstory.databinding.ActivityHomeBinding
 import com.example.dicodingstory.ui.detail.DetailActivity
 import com.example.dicodingstory.ui.login.LoginActivity
+import com.example.dicodingstory.ui.upload.UploadActivity
 import com.example.dicodingstory.utils.ViewModelFactory
 
 class HomeActivity : AppCompatActivity() {
@@ -30,9 +31,15 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
 
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvStory.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
-        binding.rvStory.addItemDecoration(itemDecoration)
+        binding.apply {
+            rvStory.layoutManager = layoutManager
+            rvStory.addItemDecoration(itemDecoration)
+            fabUpload.setOnClickListener {
+                val intent = Intent(this@HomeActivity, UploadActivity::class.java)
+                startActivity(intent)
+            }
+        }
 
         homeViewModel.getToken().observe(this) { token ->
             if (token != null) {
