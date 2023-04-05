@@ -27,4 +27,5 @@
     <string name="gallery">Gallery</string>
     <string name="description_hint">Write your description…</string>
     <string name="upload">Upload</string>
+    <string name="thumbnail">Uploaded Image</string>
 </resources>
