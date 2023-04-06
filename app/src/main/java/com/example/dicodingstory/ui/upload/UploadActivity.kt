@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import com.example.dicodingstory.R
 import com.example.dicodingstory.data.Result
 import com.example.dicodingstory.databinding.ActivityUploadBinding
 import com.example.dicodingstory.utils.Utils.createTempFile
@@ -94,19 +95,19 @@ class UploadActivity : AppCompatActivity() {
         val description = binding.edAddDescription.text.toString()
 
         if (getFile == null) {
-            showLoading(false)
             Toast.makeText(
                 this@UploadActivity,
-                "Please select your image first",
+                R.string.error_no_image,
                 Toast.LENGTH_SHORT
             ).show()
+            showLoading(false)
         } else if (description.isBlank()) {
-            showLoading(false)
             Toast.makeText(
                 this@UploadActivity,
-                "Please write your description",
+                R.string.error_no_description,
                 Toast.LENGTH_SHORT
             ).show()
+            showLoading(false)
         } else if (token != null) {
             val file = reduceFileImage(getFile as File)
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
@@ -119,13 +120,17 @@ class UploadActivity : AppCompatActivity() {
             uploadViewModel.uploadStory(token, description, imageMultipart).observe(this) {
                 when(it) {
                     is Result.Loading -> {
-
+                        Toast.makeText(
+                            this@UploadActivity,
+                            R.string.loading,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                     is Result.Success -> {
                         showLoading(false)
                         Toast.makeText(
                             this@UploadActivity,
-                            "Successfully uploaded your story",
+                            R.string.success_upload,
                             Toast.LENGTH_SHORT
                         ).show()
                         finish()
@@ -134,7 +139,7 @@ class UploadActivity : AppCompatActivity() {
                         showLoading(false)
                         Toast.makeText(
                             this@UploadActivity,
-                            "Your story failed to upload",
+                            R.string.error_upload,
                             Toast.LENGTH_SHORT
                         ).show()
                     }
