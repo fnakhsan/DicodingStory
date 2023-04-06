@@ -1,5 +1,7 @@
 package com.example.dicodingstory.ui.login
 
+import android.animation.ObjectAnimator
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -60,16 +62,25 @@ class LoginActivity : AppCompatActivity() {
             }
         }
         supportActionBar?.hide()
+        animation()
     }
 
     private fun toHome() {
         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-        startActivity(intent)
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         finish()
     }
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun animation() {
+        ObjectAnimator.ofFloat(binding.ivLogin, View.TRANSLATION_X, 0f, 150f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
     }
 
     companion object {

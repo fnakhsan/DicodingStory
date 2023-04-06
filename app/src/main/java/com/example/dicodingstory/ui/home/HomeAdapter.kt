@@ -1,10 +1,12 @@
 package com.example.dicodingstory.ui.home
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dicodingstory.R
@@ -15,7 +17,7 @@ class HomeAdapter(private val listStory: List<StoryModel?>) :
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     interface OnItemClickCallback {
-        fun onItemClicked(data: StoryModel)
+        fun onItemClicked(data: StoryModel, optionsCompat: ActivityOptionsCompat)
     }
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
@@ -39,7 +41,15 @@ class HomeAdapter(private val listStory: List<StoryModel?>) :
             tvDate.text = story?.createdAt
             itemView.setOnClickListener {
                 if (story != null) {
-                    onItemClickCallback.onItemClicked(story)
+                    val optionsCompat: ActivityOptionsCompat =
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(
+                            itemView.context as Activity,
+                            androidx.core.util.Pair(ivStory, "image"),
+                            androidx.core.util.Pair(tvName, "name"),
+                            androidx.core.util.Pair(tvDesc, "description"),
+                            androidx.core.util.Pair(tvDate, "date")
+                        )
+                    onItemClickCallback.onItemClicked(story, optionsCompat)
                 }
             }
         }

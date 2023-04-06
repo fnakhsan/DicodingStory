@@ -34,6 +34,7 @@
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/story_desc"
                     android:scaleType="fitCenter"
+                    android:transitionName="image"
                     tools:src="@tools:sample/avatars" />
             </androidx.cardview.widget.CardView>
 
@@ -46,6 +47,7 @@
                 android:layout_marginTop="8dp"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:transitionName="name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cv_image"
                 tools:text="@string/username" />
@@ -57,6 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
                 android:layout_marginTop="4dp"
+                android:transitionName="description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_detail_name"
@@ -103,6 +106,7 @@
                 android:layout_marginHorizontal="8dp"
                 android:layout_marginTop="4dp"
                 android:textSize="12sp"
+                android:transitionName="date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ll"
                 tools:text="@string/story_date" />

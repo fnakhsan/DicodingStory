@@ -1,5 +1,6 @@
 package com.example.dicodingstory.ui.register
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -52,6 +53,7 @@ class RegisterActivity : AppCompatActivity() {
                toLogin()
             }
         }
+        animation()
     }
 
     private fun toLogin() {
@@ -62,5 +64,13 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun animation() {
+        ObjectAnimator.ofFloat(binding.ivRegister, View.TRANSLATION_X, -75f, 75f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
     }
 }

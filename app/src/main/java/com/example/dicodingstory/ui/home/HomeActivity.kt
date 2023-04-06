@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dicodingstory.R
@@ -86,10 +87,10 @@ class HomeActivity : AppCompatActivity() {
     private fun setListStories(data: List<StoryModel?>) {
         val adapter = HomeAdapter(data)
         adapter.setOnItemClickCallback(object : HomeAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: StoryModel) {
+            override fun onItemClicked(data: StoryModel, optionsCompat: ActivityOptionsCompat) {
                 val intent = Intent(this@HomeActivity, DetailActivity::class.java)
                 intent.putExtra(EXTRA_ID, data.id)
-                startActivity(intent)
+                startActivity(intent, optionsCompat.toBundle())
             }
         })
         binding.rvStory.adapter = adapter
