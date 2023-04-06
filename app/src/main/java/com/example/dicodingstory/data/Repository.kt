@@ -3,6 +3,7 @@ package com.example.dicodingstory.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.example.dicodingstory.data.local.AuthDataStore
+import com.example.dicodingstory.data.local.LocaleDataStore
 import com.example.dicodingstory.data.model.*
 import com.example.dicodingstory.data.network.ApiService
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +12,11 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
 
-class Repository(private val apiService: ApiService, private val authDataStore: AuthDataStore) {
+class Repository(
+    private val apiService: ApiService,
+    private val authDataStore: AuthDataStore,
+    private val localeDataStore: LocaleDataStore
+) {
 
     fun getToken(): Flow<String?> = authDataStore.getToken()
 
@@ -21,6 +26,12 @@ class Repository(private val apiService: ApiService, private val authDataStore: 
 
     suspend fun clearToken() {
         authDataStore.clearToken()
+    }
+
+    fun getLocale(): Flow<String?> = localeDataStore.getLocaleSetting()
+
+    suspend fun saveLocale(locale: String) {
+        localeDataStore.saveLocaleSetting(locale)
     }
 
     fun getUserLogin(email: String, password: String): LiveData<Result<LoginResponse>> =
@@ -101,9 +112,10 @@ class Repository(private val apiService: ApiService, private val authDataStore: 
         private var instance: Repository? = null
         fun getInstance(
             apiService: ApiService,
-            authDataStore: AuthDataStore
+            authDataStore: AuthDataStore,
+            localeDataStore: LocaleDataStore
         ): Repository = instance ?: synchronized(this) {
-            instance ?: Repository(apiService, authDataStore)
+            instance ?: Repository(apiService, authDataStore, localeDataStore)
         }.also { instance = it }
     }
 }

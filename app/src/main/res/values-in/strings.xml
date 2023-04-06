@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DicodingStory</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="invalid_email">Alamat email tidak valid</string>
+    <string name="password">Password</string>
+    <string name="invalid_password">Kata sandi minimal harus terdiri dari 8 karakter</string>
+    <string name="login_button">Log In</string>
+    <string name="register_dialog">Belum memiliki akun?</string>
+    <string name="register_text_button">Daftar disini!</string>
+    <string name="login_failed">Gagal login</string>
+    <string name="logout">Logout</string>
+    <string name="username">Username</string>
+    <string name="story_date">Tanggal Story</string>
+    <string name="story_desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam architecto, assumenda dicta doloribus eaque error et eum in ipsa officia quaerat, quas, quo recusandae repudiandae sequi tempore temporibus totam voluptates!</string>
+    <string name="upload_story">Upload your story</string>
+    <string name="lat">Latitude</string>
+    <string name="lon">Longitude</string>
+    <string name="register_title">Buat Akun Anda</string>
+    <string name="name">Nama</string>
+    <string name="name_hint">Namamu</string>
+    <string name="register_button">Daftar</string>
+    <string name="login_dialog">Sudah memiliki akun?</string>
+    <string name="login_text_button">Login disini!</string>
+    <string name="register_failed">Pendaftaran gagal</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galeri</string>
+    <string name="description_hint">Tulis deskripsimu…</string>
+    <string name="upload">Unggah</string>
+    <string name="thumbnail">Gambar yang diunggah</string>
+    <string name="error_no_image">Silakan pilih gambar anda terlebih dulu</string>
+    <string name="error_no_description">Silakan tulis deskripsi anda</string>
+    <string name="error_upload">Gagal mengunggah cerita Anda, coba lagi dengan koneksi yang memadai</string>
+    <string name="loading">Tunggu sebentar…</string>
+    <string name="success_upload">Berhasil mengunggah cerita Anda</string>
+    <string name="setting">Pengaturan</string>
+    <string name="language">Bahasa</string>
+    <string-array name="language_array">
+        <item>Inggris</item>
+        <item>Indonesia</item>
+    </string-array>
+</resources>

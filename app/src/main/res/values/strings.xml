@@ -33,4 +33,10 @@
     <string name="error_upload">Failed to upload your story, please try again with proper connection</string>
     <string name="loading">Wait a moment…</string>
     <string name="success_upload">Successfully upload your story</string>
+    <string name="setting">Setting</string>
+    <string name="language">Language</string>
+    <string-array name="language_array">
+        <item>English</item>
+        <item>Indonesia</item>
+    </string-array>
 </resources>

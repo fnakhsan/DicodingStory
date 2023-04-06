@@ -17,6 +17,7 @@ import com.example.dicodingstory.data.model.StoryModel
 import com.example.dicodingstory.databinding.ActivityHomeBinding
 import com.example.dicodingstory.ui.detail.DetailActivity
 import com.example.dicodingstory.ui.login.LoginActivity
+import com.example.dicodingstory.ui.setting.SettingActivity
 import com.example.dicodingstory.ui.upload.UploadActivity
 import com.example.dicodingstory.utils.ViewModelFactory
 
@@ -76,6 +77,11 @@ class HomeActivity : AppCompatActivity() {
                 homeViewModel.clearToken()
                 showLoading(false)
                 toLogin()
+                super.onOptionsItemSelected(item)
+            }
+            R.id.action_setting -> {
+                val intent = Intent(this@HomeActivity, SettingActivity::class.java)
+                startActivity(intent)
                 super.onOptionsItemSelected(item)
             }
             else -> {
