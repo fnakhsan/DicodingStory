@@ -2,12 +2,17 @@ package com.example.dicodingstory.ui.login
 
 import android.animation.ObjectAnimator
 import android.app.ActivityOptions
+import android.app.LocaleManager
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.LocaleList
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import com.example.dicodingstory.R
 import com.example.dicodingstory.data.Result
 import com.example.dicodingstory.databinding.ActivityLoginBinding
@@ -24,11 +29,22 @@ class LoginActivity : AppCompatActivity() {
         val loginViewModel: LoginViewModel by viewModels {
             factory
         }
-        loginViewModel.getToken().observe(this) {
-            if (it != null) {
-                toHome()
+        loginViewModel.apply {
+            getToken().observe(this@LoginActivity) {
+                if (it != null) {
+                    toHome()
+                }
+            }
+            getLocale().observe(this@LoginActivity) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    baseContext.getSystemService(LocaleManager::class.java).applicationLocales =
+                        LocaleList.forLanguageTags(it)
+                } else {
+                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(it))
+                }
             }
         }
+
         setContentView(binding.root)
         binding.apply {
             btnLogin.setOnClickListener {
