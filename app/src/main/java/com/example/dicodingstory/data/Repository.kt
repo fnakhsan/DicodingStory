@@ -17,7 +17,6 @@ class Repository(
     private val authDataStore: AuthDataStore,
     private val localeDataStore: LocaleDataStore
 ) {
-
     fun getToken(): Flow<String?> = authDataStore.getToken()
 
     private suspend fun saveToken(token: String) {
@@ -28,7 +27,7 @@ class Repository(
         authDataStore.clearToken()
     }
 
-    fun getLocale(): Flow<String?> = localeDataStore.getLocaleSetting()
+    fun getLocale(): Flow<String> = localeDataStore.getLocaleSetting()
 
     suspend fun saveLocale(locale: String) {
         localeDataStore.saveLocaleSetting(locale)
@@ -112,10 +111,10 @@ class Repository(
         private var instance: Repository? = null
         fun getInstance(
             apiService: ApiService,
-            authDataStore: AuthDataStore,
+            prefDataStore: AuthDataStore,
             localeDataStore: LocaleDataStore
         ): Repository = instance ?: synchronized(this) {
-            instance ?: Repository(apiService, authDataStore, localeDataStore)
+            instance ?: Repository(apiService, prefDataStore, localeDataStore)
         }.also { instance = it }
     }
 }

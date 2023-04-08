@@ -13,6 +13,10 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <!--  Splash screen theme.  -->
+    <style name="SplashScreen" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
     <style name="textDefault">
         <item name="color">@color/text_black</item>
         <item name="fontFamily">@font/montserrat_medium</item>

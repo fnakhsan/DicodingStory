@@ -2,15 +2,34 @@
     <!-- Base application theme. -->
     <style name="Theme.DicodingStory" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimary">@color/text_gray</item>
+        <item name="colorPrimaryVariant">@color/text_gray</item>
+        <item name="colorOnPrimary">@color/dicoding</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/text_gray</item>
+        <item name="colorSecondaryVariant">@color/text_gray</item>
+        <item name="colorOnSecondary">@color/dicoding</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+    <!--  Splash screen theme.  -->
+    <style name="SplashScreen" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+    <style name="textDefault">
+        <item name="color">@color/white2</item>
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="textBold">
+        <item name="color">@color/white2</item>
+        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="textExtraBold">
+        <item name="color">@color/white2</item>
+        <item name="fontFamily">@font/montserrat_extra_bold</item>
+        <item name="android:textSize">14sp</item>
     </style>
 </resources>

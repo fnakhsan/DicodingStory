@@ -2,17 +2,12 @@ package com.example.dicodingstory.ui.login
 
 import android.animation.ObjectAnimator
 import android.app.ActivityOptions
-import android.app.LocaleManager
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.os.LocaleList
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.os.LocaleListCompat
 import com.example.dicodingstory.R
 import com.example.dicodingstory.data.Result
 import com.example.dicodingstory.databinding.ActivityLoginBinding
@@ -24,7 +19,9 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(R.style.Theme_DicodingStory)
         binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
         val loginViewModel: LoginViewModel by viewModels {
             factory
@@ -35,17 +32,7 @@ class LoginActivity : AppCompatActivity() {
                     toHome()
                 }
             }
-            getLocale().observe(this@LoginActivity) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    baseContext.getSystemService(LocaleManager::class.java).applicationLocales =
-                        LocaleList.forLanguageTags(it)
-                } else {
-                    AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(it))
-                }
-            }
         }
-
-        setContentView(binding.root)
         binding.apply {
             btnLogin.setOnClickListener {
                 val email = binding.edLoginEmail.text.toString().trim()
@@ -97,9 +84,5 @@ class LoginActivity : AppCompatActivity() {
             repeatCount = ObjectAnimator.INFINITE
             repeatMode = ObjectAnimator.REVERSE
         }.start()
-    }
-
-    companion object {
-        private const val TAG = "login"
     }
 }

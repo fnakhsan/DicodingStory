@@ -2,7 +2,6 @@ package com.example.dicodingstory.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -45,7 +44,6 @@ class HomeActivity : AppCompatActivity() {
 
         homeViewModel.getToken().observe(this) { token ->
             if (token != null) {
-                Log.d(TAG, token)
                 homeViewModel.getAllStories(token).observe(this){
                     when(it) {
                         is Result.Success -> {
@@ -113,7 +111,6 @@ class HomeActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val TAG = "Home"
         const val EXTRA_ID = "extra_id"
     }
 }

@@ -20,14 +20,13 @@ class SettingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
         val settingViewModel: SettingViewModel by viewModels {
             factory
         }
         val language: Array<String> = resources.getStringArray(R.array.language_array)
         val arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, language)
-        setContentView(binding.root)
-
         settingViewModel.getLocale().observe(this) {
             if (it == "in") {
                 binding.spLanguage.setSelection(arrayAdapter.getPosition(language[1]))

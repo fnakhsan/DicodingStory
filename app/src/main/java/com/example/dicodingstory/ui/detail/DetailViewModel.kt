@@ -1,6 +1,5 @@
 package com.example.dicodingstory.ui.detail
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.example.dicodingstory.data.Repository

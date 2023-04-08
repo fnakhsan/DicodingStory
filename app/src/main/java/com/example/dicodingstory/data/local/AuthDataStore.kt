@@ -22,7 +22,7 @@ class AuthDataStore private constructor(private val dataStore: DataStore<Prefere
 
     suspend fun clearToken() {
         dataStore.edit { preferences ->
-            preferences.clear()
+            preferences.remove(TOKEN_KEY)
         }
     }
 
