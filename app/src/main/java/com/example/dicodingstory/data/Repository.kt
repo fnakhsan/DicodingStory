@@ -2,8 +2,10 @@ package com.example.dicodingstory.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.example.dicodingstory.data.local.AuthDataStore
-import com.example.dicodingstory.data.local.LocaleDataStore
+import androidx.paging.*
+import com.example.dicodingstory.data.local.database.StoryDatabase
+import com.example.dicodingstory.data.local.datastore.AuthDataStore
+import com.example.dicodingstory.data.local.datastore.LocaleDataStore
 import com.example.dicodingstory.data.model.*
 import com.example.dicodingstory.data.network.ApiService
 import kotlinx.coroutines.Dispatchers
@@ -14,6 +16,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 
 class Repository(
     private val apiService: ApiService,
+    private val storyDatabase: StoryDatabase,
     private val authDataStore: AuthDataStore,
     private val localeDataStore: LocaleDataStore
 ) {
@@ -59,14 +62,19 @@ class Repository(
         }
     }
 
-    fun getAllStories(token: String): LiveData<Result<ListStoryModel>> = liveData(Dispatchers.IO) {
-        emit(Result.Loading)
-        try {
-            val response = apiService.getAllStories(generateBearerToken(token))
-            emit(Result.Success(response))
-        } catch (e: Exception) {
-            emit(Result.Error(e.message.toString()))
-        }
+    fun getAllStories(token: String): LiveData<PagingData<StoryModel>> {
+        @OptIn(ExperimentalPagingApi::class)
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            remoteMediator = StoryRemoteMediator(
+                apiService,
+                storyDatabase,
+                generateBearerToken(token)
+            ),
+            pagingSourceFactory = {
+                storyDatabase.storyDao().getAllStory()
+            }
+        ).liveData
     }
 
     fun getDetailStory(token: String, id: String): LiveData<Result<DetailStoryResponse>> =

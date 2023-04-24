@@ -68,7 +68,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setListStories(data: List<StoryModel?>) {
+    private fun setListStories(data: List<StoryModel>) {
         val adapter = HomeAdapter(data)
         adapter.setOnItemClickCallback(object : HomeAdapter.OnItemClickCallback {
             override fun onItemClicked(data: StoryModel, optionsCompat: ActivityOptionsCompat) {

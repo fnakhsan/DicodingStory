@@ -5,8 +5,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.dicodingstory.data.Repository
-import com.example.dicodingstory.data.local.AuthDataStore
-import com.example.dicodingstory.data.local.LocaleDataStore
+import com.example.dicodingstory.data.local.datastore.AuthDataStore
+import com.example.dicodingstory.data.local.datastore.LocaleDataStore
 import com.example.dicodingstory.data.network.ApiConfig
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore("preferences")
