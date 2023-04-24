@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.dicodingstory.R
 import com.example.dicodingstory.data.Result
 import com.example.dicodingstory.databinding.ActivityLoginBinding
-import com.example.dicodingstory.ui.home.HomeActivity
+import com.example.dicodingstory.ui.main.MainActivity
 import com.example.dicodingstory.ui.register.RegisterActivity
 import com.example.dicodingstory.utils.ViewModelFactory
 
@@ -69,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun toHome() {
-        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+        val intent = Intent(this@LoginActivity, MainActivity::class.java)
         startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
         finish()
     }

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.dicodingstory.data.model.Story
 import com.example.dicodingstory.databinding.ActivityDetailBinding
-import com.example.dicodingstory.ui.home.HomeActivity.Companion.EXTRA_ID
+import com.example.dicodingstory.ui.home.HomeFragment.Companion.EXTRA_ID
 import com.example.dicodingstory.utils.ViewModelFactory
 
 class DetailActivity : AppCompatActivity() {

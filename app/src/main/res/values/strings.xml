@@ -39,4 +39,6 @@
         <item>English</item>
         <item>Indonesia</item>
     </string-array>
+    <string name="title_home">Home</string>
+    <string name="title_maps">Maps</string>
 </resources>
