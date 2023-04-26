@@ -8,15 +8,18 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.dicodingstory.data.Result
 import com.example.dicodingstory.data.model.StoryModel
 import com.example.dicodingstory.databinding.FragmentHomeBinding
+import com.example.dicodingstory.ui.adapter.LoadingStateAdapter
+import com.example.dicodingstory.ui.adapter.StoryAdapter
 import com.example.dicodingstory.ui.detail.DetailActivity
 import com.example.dicodingstory.ui.upload.UploadActivity
 import com.example.dicodingstory.utils.ViewModelFactory
 
+@OptIn(ExperimentalPagingApi::class)
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -50,38 +53,30 @@ class HomeFragment : Fragment() {
 
         homeViewModel.getToken().observe(viewLifecycleOwner) { token ->
             if (token != null) {
-                homeViewModel.getAllStories(token).observe(viewLifecycleOwner) {
-                    when (it) {
-                        is Result.Success -> {
-                            setListStories(it.data.listStory)
-                            showLoading(false)
-                        }
-                        is Result.Error -> {
-                            showLoading(false)
-                        }
-                        is Result.Loading -> {
-                            showLoading(true)
-                        }
-                    }
-                }
+                setListStories(homeViewModel, token)
             }
         }
     }
 
-    private fun setListStories(data: List<StoryModel>) {
-        val adapter = HomeAdapter(data)
-        adapter.setOnItemClickCallback(object : HomeAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: StoryModel, optionsCompat: ActivityOptionsCompat) {
-                val intent = Intent(requireActivity(), DetailActivity::class.java)
-                intent.putExtra(EXTRA_ID, data.id)
-                startActivity(intent, optionsCompat.toBundle())
+    private fun setListStories(homeViewModel: HomeViewModel, token: String) {
+        val adapter = StoryAdapter()
+        binding.rvStory.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
             }
-        })
-        binding.rvStory.adapter = adapter
-    }
+        )
+        homeViewModel.getAllStories(token).observe(viewLifecycleOwner) {
+            adapter.submitData(lifecycle, it)
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+            adapter.setOnItemClickCallback(object : StoryAdapter.OnItemClickCallback {
+                override fun onItemClicked(data: StoryModel, optionsCompat: ActivityOptionsCompat) {
+                    val intent = Intent(requireActivity(), DetailActivity::class.java)
+                    intent.putExtra(EXTRA_ID, data.id)
+                    startActivity(intent, optionsCompat.toBundle())
+                }
+            })
+
+        }
     }
 
     override fun onDestroyView() {

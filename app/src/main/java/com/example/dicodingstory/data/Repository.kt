@@ -119,10 +119,11 @@ class Repository(
         private var instance: Repository? = null
         fun getInstance(
             apiService: ApiService,
-            prefDataStore: AuthDataStore,
+            storyDatabase: StoryDatabase,
+            authDataStore: AuthDataStore,
             localeDataStore: LocaleDataStore
         ): Repository = instance ?: synchronized(this) {
-            instance ?: Repository(apiService, prefDataStore, localeDataStore)
+            instance ?: Repository(apiService, storyDatabase, authDataStore, localeDataStore)
         }.also { instance = it }
     }
 }

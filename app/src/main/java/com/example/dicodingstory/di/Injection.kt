@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.dicodingstory.data.Repository
+import com.example.dicodingstory.data.local.database.StoryDatabase
 import com.example.dicodingstory.data.local.datastore.AuthDataStore
 import com.example.dicodingstory.data.local.datastore.LocaleDataStore
 import com.example.dicodingstory.data.network.ApiConfig
@@ -15,6 +16,7 @@ object Injection {
         val apiService = ApiConfig.getApiService()
         return Repository.getInstance(
             apiService,
+            StoryDatabase.getDatabase(context),
             AuthDataStore.getInstance(context.dataStore),
             LocaleDataStore.getInstance(context.dataStore)
         )

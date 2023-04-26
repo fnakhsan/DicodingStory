@@ -10,7 +10,7 @@ import com.example.dicodingstory.data.model.RemoteKeysModel
 import com.example.dicodingstory.data.model.StoryModel
 import com.example.dicodingstory.data.network.ApiService
 
-@ExperimentalPagingApi
+@OptIn(ExperimentalPagingApi::class)
 class StoryRemoteMediator(
     private val apiService: ApiService,
     private val database: StoryDatabase,
