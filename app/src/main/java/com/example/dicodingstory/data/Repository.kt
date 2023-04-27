@@ -77,6 +77,17 @@ class Repository(
         ).liveData
     }
 
+    fun getAllStoriesLocation(token: String): LiveData<Result<ListStoryModel>> =
+        liveData(Dispatchers.IO) {
+            emit(Result.Loading)
+            try {
+                val response = apiService.getAllStories(generateBearerToken(token), location = 1)
+                emit(Result.Success(response))
+            } catch (e: Exception) {
+                emit(Result.Error(e.message.toString()))
+            }
+        }
+
     fun getDetailStory(token: String, id: String): LiveData<Result<DetailStoryResponse>> =
         liveData(Dispatchers.IO) {
             emit(Result.Loading)
