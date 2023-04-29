@@ -1,5 +1,6 @@
 package com.example.dicodingstory.data
 
+import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.paging.*
@@ -102,15 +103,26 @@ class Repository(
     fun uploadStory(
         token: String,
         description: String,
-        image: MultipartBody.Part
+        image: MultipartBody.Part,
+        location: Location?
     ): LiveData<Result<UploadModel>> = liveData(Dispatchers.IO) {
         emit(Result.Loading)
         try {
-            val response = apiService.uploadStory(
-                generateBearerToken(token),
-                description.toRequestBody("text/plain".toMediaType()),
-                image
-            )
+            val response = if (location!= null) {
+                apiService.uploadStory(
+                    generateBearerToken(token),
+                    description.toRequestBody("text/plain".toMediaType()),
+                    image,
+                    location.latitude.toString().toRequestBody("text/plain".toMediaType()),
+                    location.longitude.toString().toRequestBody("text/plain".toMediaType())
+                )
+            } else {
+                apiService.uploadStory(
+                    generateBearerToken(token),
+                    description.toRequestBody("text/plain".toMediaType()),
+                    image
+                )
+            }
             emit(Result.Success(response))
         } catch (e: Exception) {
             emit(Result.Error(e.message.toString()))

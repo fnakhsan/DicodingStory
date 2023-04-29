@@ -30,6 +30,7 @@
     <string name="thumbnail">Uploaded Image</string>
     <string name="error_no_image">Please select your image first</string>
     <string name="error_no_description">Please write your description</string>
+    <string name="error_no_location">Location not found, please try again</string>
     <string name="error_upload">Failed to upload your story, please try again with proper connection</string>
     <string name="loading">Wait a moment…</string>
     <string name="success_upload">Successfully upload your story</string>

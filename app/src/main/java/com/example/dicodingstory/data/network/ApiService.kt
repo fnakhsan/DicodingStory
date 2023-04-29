@@ -40,6 +40,8 @@ interface ApiService {
     suspend fun uploadStory(
         @Header("Authorization") token: String,
         @Part("description") description: RequestBody,
-        @Part file: MultipartBody.Part
+        @Part file: MultipartBody.Part,
+        @Part("lat") lat: RequestBody? = null,
+        @Part("lon") lon: RequestBody? = null
     ): UploadModel
 }

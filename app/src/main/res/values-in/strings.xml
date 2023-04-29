@@ -31,6 +31,7 @@
     <string name="thumbnail">Gambar yang diunggah</string>
     <string name="error_no_image">Silakan pilih gambar anda terlebih dulu</string>
     <string name="error_no_description">Silakan tulis deskripsi anda</string>
+    <string name="error_no_location">Lokasi tidak ditemukan, silakan coba lagi</string>
     <string name="error_upload">Gagal mengunggah cerita Anda, coba lagi dengan koneksi yang memadai</string>
     <string name="loading">Tunggu sebentar…</string>
     <string name="success_upload">Berhasil mengunggah cerita Anda</string>
