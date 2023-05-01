@@ -44,4 +44,6 @@
     <string name="title_maps">Maps</string>
     <string name="retry">Retry</string>
     <string name="label_location">Share your location</string>
+    <string name="lat_value">Latitude: %1$s</string>
+    <string name="lon_value">Longitude: %1$s</string>
 </resources>

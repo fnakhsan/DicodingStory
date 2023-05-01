@@ -9,7 +9,6 @@ import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import android.widget.CompoundButton
 import android.widget.Toast
@@ -18,6 +17,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.dicodingstory.R
 import com.example.dicodingstory.data.Result
 import com.example.dicodingstory.databinding.ActivityUploadBinding
@@ -27,6 +27,7 @@ import com.example.dicodingstory.utils.Utils.uriToFile
 import com.example.dicodingstory.utils.ViewModelFactory
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -67,15 +68,13 @@ class UploadActivity : AppCompatActivity() {
         ) { permissions ->
             when {
                 permissions[permission.ACCESS_FINE_LOCATION] ?: false -> {
-                    // Precise location access granted.
                     getMyLastLocation()
                 }
                 permissions[permission.ACCESS_COARSE_LOCATION] ?: false -> {
-                    // Only approximate location access granted.
                     getMyLastLocation()
                 }
                 else -> {
-                    // No location access granted.
+                    binding.switchLocation.isChecked = false
                 }
             }
         }
@@ -93,12 +92,11 @@ class UploadActivity : AppCompatActivity() {
             btnGallery.setOnClickListener { startGallery() }
             switchLocation.setOnCheckedChangeListener { _: CompoundButton?, isChecked: Boolean ->
                 if (isChecked) {
-                    getMyLastLocation()
-                    Log.d(TAG, "Latitude: ${location?.latitude}, Longitude: ${location?.longitude}")
-                    switchLocation.isChecked = true
+                    lifecycleScope.launch {
+                        getMyLastLocation()
+                    }
                 } else {
                     location = null
-                    switchLocation.isChecked = false
                 }
             }
             uploadViewModel.getToken().observe(this@UploadActivity) { token ->
@@ -106,7 +104,7 @@ class UploadActivity : AppCompatActivity() {
             }
         }
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this@UploadActivity)
     }
 
     private fun checkPermission(permission: String): Boolean {
@@ -119,8 +117,8 @@ class UploadActivity : AppCompatActivity() {
     @SuppressLint("MissingPermission")
     private fun getMyLastLocation() {
         if (checkPermission(permission.ACCESS_FINE_LOCATION) &&
-            checkPermission(permission.ACCESS_COARSE_LOCATION)) {
-            Log.d(TAG, "masuk getMyLastLocation()")
+            checkPermission(permission.ACCESS_COARSE_LOCATION)
+        ) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 if (location != null) {
                     this.location = location
@@ -133,10 +131,8 @@ class UploadActivity : AppCompatActivity() {
 
                     binding.switchLocation.isChecked = false
                 }
-                Log.d(TAG, "Latitude: ${location?.latitude}, Longitude: ${location?.longitude}")
             }
         } else {
-            Log.d(TAG, "Latitude: ${location?.latitude}, Longitude: ${location?.longitude}")
             requestPermissionLauncher.launch(
                 arrayOf(
                     permission.ACCESS_FINE_LOCATION,
@@ -172,7 +168,6 @@ class UploadActivity : AppCompatActivity() {
 
     private fun uploadImage(token: String?, uploadViewModel: UploadViewModel, location: Location?) {
         showLoading(true)
-        Log.d(TAG, "masuk uplod")
         val description = binding.edAddDescription.text.toString()
 
         if (getFile == null) {
@@ -197,46 +192,39 @@ class UploadActivity : AppCompatActivity() {
                 file.name,
                 requestImageFile
             )
-            Log.d(TAG, "Latitude: ${location?.latitude}, Longitude: ${location?.longitude}")
-            uploadViewModel.uploadStory(token, description, imageMultipart, location).observe(this) {
-                Log.d(TAG, "masuk viewmodel")
-                when (it) {
-                    is Result.Loading -> {
-                        Log.d(TAG, "loading")
-                        Toast.makeText(
-                            this@UploadActivity,
-                            R.string.loading,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    is Result.Success -> {
-                        showLoading(false)
-                        Log.d(TAG, "sukses")
-                        Toast.makeText(
-                            this@UploadActivity,
-                            R.string.success_upload,
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        finish()
-                    }
-                    is Result.Error -> {
-                        showLoading(false)
-                        Toast.makeText(
-                            this@UploadActivity,
-                            R.string.error_upload,
-                            Toast.LENGTH_SHORT
-                        ).show()
+            uploadViewModel.uploadStory(token, description, imageMultipart, location)
+                .observe(this) {
+                    when (it) {
+                        is Result.Loading -> {
+                            Toast.makeText(
+                                this@UploadActivity,
+                                R.string.loading,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        is Result.Success -> {
+                            showLoading(false)
+                            Toast.makeText(
+                                this@UploadActivity,
+                                R.string.success_upload,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            finish()
+                        }
+                        is Result.Error -> {
+                            showLoading(false)
+                            Toast.makeText(
+                                this@UploadActivity,
+                                R.string.error_upload,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
                 }
-            }
         }
     }
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
-    companion object {
-        private const val TAG = "upload"
     }
 }

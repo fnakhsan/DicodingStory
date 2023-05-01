@@ -5,6 +5,7 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.example.dicodingstory.R
 import com.example.dicodingstory.data.model.Story
 import com.example.dicodingstory.databinding.ActivityDetailBinding
 import com.example.dicodingstory.ui.home.HomeFragment.Companion.EXTRA_ID
@@ -50,11 +51,11 @@ class DetailActivity : AppCompatActivity() {
             tvDetailDescription.text = story.description
             tvDetailDate.text = story.createdAt
             tvDetailLatitude.visibility = if (story.lat == null) View.GONE else {
-                tvDetailLatitude.text = story.lat.toString()
+                tvDetailLatitude.text = getString(R.string.lat_value, story.lat.toString())
                 View.VISIBLE
             }
             tvDetailLongitude.visibility = if (story.lon == null) View.GONE else {
-                tvDetailLongitude.text = story.lon.toString()
+                tvDetailLongitude.text = getString(R.string.lon_value, story.lon.toString())
                 View.VISIBLE
             }
             Glide.with(this@DetailActivity)
