@@ -60,7 +60,7 @@ class DetailActivity : AppCompatActivity() {
             }
             Glide.with(this@DetailActivity)
                 .load(story.photoUrl)
-                .centerCrop()
+                .fitCenter()
                 .into(ivDetailPhoto)
         }
     }
