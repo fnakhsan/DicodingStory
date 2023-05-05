@@ -9,4 +9,6 @@ class HomeViewModel(private val repository: Repository): ViewModel() {
     fun getToken() = repository.getToken().asLiveData(Dispatchers.IO)
 
     fun getAllStories(token: String) = repository.getAllStories(token)
+
+    fun getLocale() = repository.getLocale().asLiveData(Dispatchers.IO)
 }

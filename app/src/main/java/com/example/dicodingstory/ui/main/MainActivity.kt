@@ -19,10 +19,6 @@ import com.example.dicodingstory.utils.ViewModelFactory
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
-    private val factory = ViewModelFactory.getInstance(this)
-    private val mainViewModel: MainViewModel by viewModels {
-        factory
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +37,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val factory = ViewModelFactory.getInstance(this)
+        val mainViewModel: MainViewModel by viewModels {
+            factory
+        }
         return when (item.itemId) {
             R.id.action_logout -> {
                 showLoading(true)

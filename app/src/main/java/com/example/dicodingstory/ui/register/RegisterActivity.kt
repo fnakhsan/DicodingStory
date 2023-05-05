@@ -2,11 +2,11 @@ package com.example.dicodingstory.ui.register
 
 import android.animation.ObjectAnimator
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.example.dicodingstory.R
 import com.example.dicodingstory.data.Result
 import com.example.dicodingstory.databinding.ActivityRegisterBinding
@@ -25,35 +25,53 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.apply {
             btnRegister.setOnClickListener {
-                val name = binding.edRegisterName.text.toString().trim()
-                val email = binding.edRegisterEmail.text.toString().trim()
-                val password = binding.edRegisterPassword.text.toString().trim()
-                registerViewModel.saveUserRegister(name, email, password).observe(this@RegisterActivity) {
-                    when (it) {
-                        is Result.Loading -> {
-                            showLoading(true)
-                        }
-                        is Result.Success -> {
-                            showLoading(false)
-                            toLogin()
-                        }
-                        is Result.Error -> {
-                            Toast.makeText(
-                                this@RegisterActivity,
-                                R.string.register_failed,
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            showLoading(false)
-                        }
-                    }
+                if (edRegisterEmail.error.isNullOrEmpty() && edRegisterName.error.isNullOrEmpty() && edRegisterPassword.error.isNullOrEmpty()) {
+                    val name = edRegisterName.text.toString().trim()
+                    val email = edRegisterEmail.text.toString().trim()
+                    val password = edRegisterPassword.text.toString().trim()
+                    register(registerViewModel, name, email, password)
+                } else {
+                    Toast.makeText(
+                        this@RegisterActivity,
+                        R.string.register_failed,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
             tvLogin.setOnClickListener {
-               toLogin()
+                toLogin()
             }
         }
         animation()
+    }
+
+    private fun register(
+        registerViewModel: RegisterViewModel,
+        name: String,
+        email: String,
+        password: String
+    ) {
+        registerViewModel.saveUserRegister(name, email, password)
+            .observe(this@RegisterActivity) {
+                when (it) {
+                    is Result.Loading -> {
+                        showLoading(true)
+                    }
+                    is Result.Success -> {
+                        showLoading(false)
+                        toLogin()
+                    }
+                    is Result.Error -> {
+                        Toast.makeText(
+                            this@RegisterActivity,
+                            R.string.register_failed,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        showLoading(false)
+                    }
+                }
+            }
     }
 
     private fun toLogin() {

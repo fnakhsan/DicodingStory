@@ -10,4 +10,6 @@ class LoginViewModel(private val repository: Repository) : ViewModel() {
         repository.getUserLogin(email, password)
 
     fun getToken() = repository.getToken().asLiveData(Dispatchers.IO)
+
+    fun getLocale() = repository.getLocale().asLiveData(Dispatchers.IO)
 }
